@@ -309,7 +309,7 @@ Pour les prochaines versions, nous envisageons :
 
 ## 🚀 Prochaines étapes
 
-Prêt à commencer ? Consultez notre [guide d'installation](./install.md) pour mettre en place le projet, puis découvrez comment l'utiliser dans notre [guide d'utilisation](./usage.md).
+Prêt à commencer ? Consultez notre [guide d'installation](./installation.md) pour mettre en place le projet, puis découvrez comment l'utiliser dans notre [guide d'utilisation](./usage.md).
 
 ---
 
