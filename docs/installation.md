@@ -19,6 +19,125 @@ L'installation se déroule en 4 étapes principales :
 ⏱️ **10-15 minutes** pour une installation complète
 :::
 
+---
+
+## 🐧 Installation du Kernel Personnalisé
+
+:::info Important
+Cette section est nécessaire si vous souhaitez utiliser le kernel personnalisé avec le module **fprotect** intégré. Si vous utilisez un kernel standard, passez directement à la section [Installation des dépendances](#-installation-des-dépendances).
+:::
+
+### 1. Copier les fichiers du kernel
+
+Après avoir compilé le kernel personnalisé, copiez les fichiers nécessaires :
+
+```bash
+# Copier et renommer l'image du kernel
+sudo cp bzImage /boot/vmlinuz-6.12.46
+
+# Copier les modules compilés
+sudo cp -r 6.12.46/* /lib/modules/
+
+# Copier la configuration du kernel
+sudo cp .config /boot/config-6.12.46
+```
+
+:::tip Structure des fichiers
+- **vmlinuz-6.12.46** : Image du kernel bootable
+- **/lib/modules/6.12.46/** : Modules du kernel
+- **config-6.12.46** : Configuration utilisée pour la compilation
+:::
+
+### 2. Générer les dépendances des modules
+
+Créez le fichier de dépendances pour les modules :
+
+```bash
+cd /lib/modules
+sudo depmod 6.12.46
+```
+
+Cette commande génère `modules.dep` et autres fichiers nécessaires pour le chargement automatique des modules.
+
+### 3. Créer l'initramfs
+
+Générez l'image initramfs (Initial RAM File System) :
+
+```bash
+sudo mkinitfs -o /boot/initramfs-6.12.46 6.12.46
+```
+
+:::warning Distributions
+- **Alpine Linux** : `mkinitfs`
+- **Debian/Ubuntu** : `update-initramfs -c -k 6.12.46`
+- **Fedora/RHEL** : `dracut /boot/initramfs-6.12.46.img 6.12.46`
+- **Arch Linux** : `mkinitcpio -k 6.12.46 -g /boot/initramfs-6.12.46.img`
+:::
+
+### 4. Mettre à jour GRUB
+
+Mettez à jour la configuration du bootloader :
+
+```bash
+sudo update-grub
+```
+
+**Ou pour GRUB2 sur certaines distributions :**
+```bash
+sudo grub2-mkconfig -o /boot/grub2/grub.cfg  # Fedora/RHEL
+sudo grub-mkconfig -o /boot/grub/grub.cfg    # Debian/Ubuntu/Arch
+```
+
+### 5. Redémarrer
+
+Redémarrez pour charger le nouveau kernel :
+
+```bash
+sudo reboot
+```
+
+### 6. Vérifier le kernel
+
+Après le redémarrage, vérifiez que le bon kernel est chargé :
+
+```bash
+uname -r
+```
+
+**Sortie attendue :**
+```
+6.12.46
+```
+
+---
+
+## 🛡️ Chargement du module fprotect
+
+Une fois le kernel personnalisé démarré, chargez le module de protection :
+
+```bash
+sudo insmod /lib/modules/6.12.46/security/fprotect/fprotect_modular.ko
+```
+
+### Vérification
+
+```bash
+# Vérifier que le module est chargé
+lsmod | grep fprotect
+
+# Vérifier les messages du kernel
+dmesg | grep -i fprotect
+
+# Vérifier l'interface /proc
+ls -la /proc/mon_protect/
+```
+
+:::tip Chargement automatique
+Pour charger automatiquement le module au démarrage, ajoutez-le à `/etc/modules-load.d/` (voir section [Chargement automatique](#-chargement-automatique-au-démarrage)).
+:::
+
+---
+
 ## 🔧 Prérequis
 
 Avant de commencer, assurez-vous d'avoir :

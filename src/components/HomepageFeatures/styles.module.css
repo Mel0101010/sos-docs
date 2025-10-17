@@ -1,11 +1,61 @@
 .features {
   display: flex;
   align-items: center;
-  padding: 2rem 0;
+  padding: 4rem 0;
   width: 100%;
+  background: var(--ifm-background-color);
 }
 
-.featureSvg {
-  height: 200px;
-  width: 200px;
+.features .row {
+  gap: 2rem;
+}
+
+.features .col {
+  padding: 2rem 1rem;
+  transition: transform 0.3s ease;
+}
+
+.features .col:hover {
+  transform: translateY(-5px);
+}
+
+.features .text--center {
+  padding: 1.5rem;
+  background: var(--ifm-card-background-color);
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  height: 100%;
+  transition: box-shadow 0.3s ease;
+}
+
+.features .text--center:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.features h3 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.features p {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--ifm-color-emphasis-700);
+}
+
+.features code {
+  background: var(--ifm-code-background);
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+  font-size: 0.9em;
+}
+
+@media screen and (max-width: 996px) {
+  .features {
+    padding: 2rem 0;
+  }
+  
+  .features .col {
+    margin-bottom: 1rem;
+  }
 }

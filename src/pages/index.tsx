@@ -13,22 +13,43 @@ function HomepageHeader() {
   return (
     <header className={clsx('hero hero--primary', styles.heroBanner)}>
       <div className="container">
-        <Heading as="h1" className="hero__title">
-          {siteConfig.title}
-        </Heading>
-        <p className="hero__subtitle">{siteConfig.tagline}</p>
-        <div className={styles.buttons}>
-          <Link
-            className="button button--secondary button--lg"
-            to="/docs/intro">
-            Découvrir le projet 🚀
-          </Link>
-          <Link
-            className="button button--outline button--lg"
-            to="/docs/installation"
-            style={{marginLeft: '1rem'}}>
-            Installation rapide ⚡
-          </Link>
+        <div className={styles.heroContent}>
+          <div className={styles.heroIcon}>
+            🛡️
+          </div>
+          <Heading as="h1" className="hero__title">
+            {siteConfig.title}
+          </Heading>
+          <p className="hero__subtitle">{siteConfig.tagline}</p>
+          
+          <div className={styles.heroFeatures}>
+            <div className={styles.heroFeature}>
+              <span className={styles.featureIcon}>🔐</span>
+              <span>Chiffrement AES-256</span>
+            </div>
+            <div className={styles.heroFeature}>
+              <span className={styles.featureIcon}>🐧</span>
+              <span>Kernel Linux 6.x</span>
+            </div>
+            <div className={styles.heroFeature}>
+              <span className={styles.featureIcon}>⚡</span>
+              <span>Hooks VFS</span>
+            </div>
+          </div>
+
+          <div className={styles.buttons}>
+            <Link
+              className="button button--secondary button--lg"
+              to="/docs/intro">
+              Découvrir le projet 🚀
+            </Link>
+            <Link
+              className="button button--outline button--lg"
+              to="/docs/installation"
+              style={{marginLeft: '1rem'}}>
+              Installation rapide ⚡
+            </Link>
+          </div>
         </div>
       </div>
     </header>
